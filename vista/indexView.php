@@ -18,7 +18,9 @@
             <td><?php echo $p["idtipo"]?></td>
             <td><?php echo $p["nombre"]?></td>
             <td><?php echo $p["precio"]?></td>
-            <td>&nbsp;X&nbsp;&nbsp;&nbsp;E&nbsp;</td>
+            <td>&nbsp;   <a href="formProducto.php?accion=del&id=<?php echo $p["idproducto"]?>">
+                    X
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;E&nbsp;</td>
         </tr>
         <?php }?>
     </tbody>

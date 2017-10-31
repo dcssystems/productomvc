@@ -19,21 +19,11 @@ class ProductoGestion implements ProductoInterface{
     }
 
     public function eliminarProducto($id) {
-        $encontrado = 0;
-        foreach ($this->listaProducto as $k => $prod) {
-            if ($prod->getCodigo() == $id) {
-                $posicion = $k;
-                $encontrado = 1;
-            }
-        }
-        if ($encontrado) {
-            echo "Eliminado";
-            $this->listaProducto[$posicion]=null;
-            echo "<hr>";
-        } else {
-            echo "Producto No encontrado";
-            echo "<hr>";
-        }
+       
+        $objTxn= new TransaccionDB();
+        $stm = "DELETE FROM producto WHERE idproducto=".$id;      
+        $objTxn->stm=$stm;
+        $c=$objTxn->ExecuteTxn();
     }
 
     public function actualizarProducto(Producto $p) {
@@ -55,18 +45,10 @@ class ProductoGestion implements ProductoInterface{
     }
 
     public function obtenerProducto($id) {
-        $encontrado = 0;
-        foreach ($this->listaProducto as $k => $prod) {
-            if ($prod->getCodigo() == $id) {
-                $posicion = $k;
-                $encontrado = 1;
-            }
-        }
-        if ($encontrado) {
-            return  $this->listaProducto[$posicion];
-        } else {
-            return false;
-        }
+         $objConsulta=new ConsultaDB();
+        $objConsulta->stm="SELECT idproducto, idtipo, nombre, precio FROM producto where idproducto = ".$id;
+        $p=$objConsulta->getRow();
+        return $p;
     }
 
     public function getListaProducto() {
